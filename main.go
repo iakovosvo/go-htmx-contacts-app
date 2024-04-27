@@ -1,21 +1,23 @@
 package main
 
 import (
-	"github.com/a-h/templ"
-	"github.com/iakovosvo/go-htmx-todo-app/templates"
+	"github.com/iakovosvo/go-htmx-contacts-app/handlers"
+	"github.com/iakovosvo/go-htmx-contacts-app/services"
 	"github.com/labstack/echo/v4"
 )
 
-func render(ctx echo.Context, cmp templ.Component) error {
-	return cmp.Render(ctx.Request().Context(), ctx.Response())
-}
-
 func main() {
+
 	e := echo.New()
+
+	appData := services.NewContactsStore()
+	contactsHandler := handlers.NewContactService(appData)
+
+	//e.Use(appData.InjectData)
 	e.Static("/static", "static")
 
-	e.GET("/", func(c echo.Context) error {
-		return render(c, templates.HomePage())
-	})
+	e.GET("/", contactsHandler.HomeHandler)
+	e.GET("/contacts", contactsHandler.GetAll)
+	//e.POST("/contacts", contactsHandler.Create)
 	e.Logger.Fatal(e.Start(":8080"))
 }

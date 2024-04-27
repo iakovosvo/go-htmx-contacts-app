@@ -18,6 +18,10 @@ templ-watch:
 dev:
 	go build -o ./tmp/$(APP_NAME) ./cmd/$(APP_NAME)/main.go && air
 
+.PHONY: kill
+kill: 
+	lsof -ti:8080 | xargs kill
+
 # .PHONY: build
 # build:
 # 	make tailwind-build

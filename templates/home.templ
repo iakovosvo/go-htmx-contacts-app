@@ -1,7 +1,14 @@
 package templates
 
-templ HomePage() {
+import "github.com/iakovosvo/go-htmx-contacts-app/services"
+
+templ HomePage(contacts []services.Contact, formData services.FormData) {
 	@Layout() {
-		<div><h1>homepage</h1></div>
+		<div class=" mt-8 basis-2/3 max-md:basis-full max-md:mx-4">
+			<div>
+				@Form(formData)
+				@ContactList(contacts)
+			</div>
+		</div>
 	}
 }
