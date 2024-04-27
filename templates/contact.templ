@@ -3,7 +3,8 @@ package templates
 import "github.com/iakovosvo/go-htmx-contacts-app/services"
 
 templ ContactItem(contact services.Contact) {
-	<li class="rounded-lg text-lg text-white font-bold p-4 bg-sky-950 hover:opacity-80 cursor-pointer">
-		{ contact.FirstName }
+	<li class="text-lg p-3 hover:opacity-80  cursor-pointer flex flex-col">
+		<h3 class="text-gray-200 font-bold ">{ contact.Name }</h3>
+		<p class="text-gray-400">{ contact.Email }</p>
 	</li>
 }

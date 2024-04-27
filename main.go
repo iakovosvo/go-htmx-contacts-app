@@ -10,14 +10,17 @@ func main() {
 
 	e := echo.New()
 
-	appData := services.NewContactsStore()
-	contactsHandler := handlers.NewContactService(appData)
+	store := services.NewContactsStore()
+	service := services.NewContactService(store)
+	contactsHandler := handlers.NewContactsHandler(service)
+
+	// TODO: hx-boost, url & redirection
 
 	//e.Use(appData.InjectData)
 	e.Static("/static", "static")
 
 	e.GET("/", contactsHandler.HomeHandler)
 	e.GET("/contacts", contactsHandler.GetAll)
-	//e.POST("/contacts", contactsHandler.Create)
+	e.POST("/contacts", contactsHandler.Create)
 	e.Logger.Fatal(e.Start(":8080"))
 }

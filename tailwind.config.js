@@ -2,7 +2,13 @@
 export default {
   content: ["./templates/**/*.templ"],
   theme: {
-    extend: {},
+    theme: {
+      extend: {
+        colors: {
+          "custom-gray": "#1a1a1a",
+        },
+      },
+    },
   },
   plugins: [],
 };

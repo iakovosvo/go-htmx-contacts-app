@@ -9,27 +9,16 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-type ContactService interface {
-	CreateContact(c services.Contact) error
-	// GetContactById(c services.Contact) error
-	GetAllContacts() ([]services.Contact, error)
-	// UpdateContact(c services.Contact) error
-	// DeleteContact(c services.Contact) error
-}
-
 type ContactsHandler struct {
-	store ContactService
+	service *services.ContactService
 }
 
-func NewContactService(s ContactService) *ContactsHandler {
-	return &ContactsHandler{
-		store: s,
-	}
+func NewContactsHandler(service *services.ContactService) *ContactsHandler {
+	return &ContactsHandler{service: service}
 }
 
 func (h *ContactsHandler) Create(c echo.Context) error {
-	firstName := c.FormValue("firstName")
-	lastName := c.FormValue("lastName")
+	name := c.FormValue("name")
 	email := c.FormValue("email")
 
 	//handler := c.Get("data").(*ContactsHandler)
@@ -53,21 +42,24 @@ func (h *ContactsHandler) Create(c echo.Context) error {
 	// 	return nil
 	// }
 	// TODO: Make a NewContact handler
-	contact := services.Contact{ID: uuid.New().String(), FirstName: firstName, LastName: lastName, Email: email}
-	if err := h.store.CreateContact(contact); err != nil {
+
+	contact := services.Contact{ID: uuid.New().String(), Name: name, Email: email}
+	if err := h.service.CreateContact(contact); err != nil {
 		return err
 	}
 
 	formData := services.NewFormData()
+	c.Response().Header().Set("Content-Type", "text/html")
 	if err := Render(c, templates.Form(formData)); err != nil {
 		// Log the error and handle it appropriately
 		return echo.NewHTTPError(http.StatusInternalServerError, "Failed to render form")
 	}
-	return nil
+
+	return Render(c, templates.ContactItemOob(contact))
 }
 
 func (h *ContactsHandler) GetAll(c echo.Context) error {
-	contacts, err := h.store.GetAllContacts()
+	contacts, err := h.service.GetAllContacts()
 
 	if err != nil {
 		return err
@@ -81,7 +73,7 @@ func (h *ContactsHandler) GetAll(c echo.Context) error {
 }
 
 func (h *ContactsHandler) HomeHandler(c echo.Context) error {
-	contacts, err := h.store.GetAllContacts()
+	contacts, err := h.service.GetAllContacts()
 	formData := services.NewFormData()
 
 	if err != nil {
