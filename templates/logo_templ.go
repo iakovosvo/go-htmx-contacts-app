@@ -23,7 +23,7 @@ func Logo() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex flex-col items-center justify-center mt-8\"><h1 class=\"text-4xl font-extrabold text-gray-800 flex items-center gap-2\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"50\" height=\"50\" fill=\"currentColor\" class=\"bi bi-person-lines-fill text-blue-500 rounded-full\" viewBox=\"0 0 16 16\" style=\"clip-path: circle();\"><path d=\"M1 1.5A.5.5 0 0 1 1.5 1h13a.5.5 0 0 1 .5.5v13a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-13Zm8 0v13h3V1.5h-3ZM1.5 10a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5ZM2 7 a1 1 0 1 1 2 0 1 1 0 0 1-2 0Zm3-4 a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm-2.496 6 a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1Z\"></path></svg> <span class=\"text-blue-500\">Connectly</span></h1><p class=\"text-gray-300 text-lg\">A minimal app for adding contacts.</p></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex flex-col items-center justify-center mt-8\"><h1 class=\"text-4xl font-extrabold text-gray-800 flex items-center gap-2\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"50\" height=\"50\" fill=\"currentColor\" class=\"text-blue-500 rounded-full\" viewBox=\"0 0 16 16\" style=\"clip-path: circle();\"><rect x=\"1\" y=\"1\" width=\"14\" height=\"14\" rx=\"1\" fill=\"none\" stroke=\"currentColor\"></rect> <path d=\"M2 4h12M2 6h12\" stroke=\"currentColor\" stroke-width=\".5\"></path></svg> <span class=\"text-blue-500\">Connectly</span></h1><p class=\"text-gray-300 text-lg -mt-3 ml-16\">a minimal contacts app</p></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

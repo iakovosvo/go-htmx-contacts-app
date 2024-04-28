@@ -1,6 +1,5 @@
 package services
 
-// ContactService provides an interface to the business layer
 type ContactService struct {
 	store *ContactStore
 }
@@ -10,7 +9,6 @@ func NewContactService(store *ContactStore) *ContactService {
 }
 
 func (s *ContactService) CreateContact(contact Contact) error {
-	// Example: Insert business rules here before saving
 	return s.store.CreateContact(contact)
 }
 

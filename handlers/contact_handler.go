@@ -50,6 +50,15 @@ func (h *ContactsHandler) Create(c echo.Context) error {
 	return Render(c, templates.ContactItemOob(contact))
 }
 
+func (h *ContactsHandler) Delete(c echo.Context) error {
+	id := c.Param("id")
+
+	h.service.DeleteContact(id)
+	// TODO: Add error handling
+
+	return c.NoContent(200)
+}
+
 func (h *ContactsHandler) GetAll(c echo.Context) error {
 	contacts, err := h.service.GetAllContacts()
 
