@@ -21,23 +21,15 @@ templ footer() {
 }
 
 templ nav() {
-	<nav class="bg-primary-600 p-4">
-		<div class="container flex justify-between">
-			<ol class="flex space-x-4">
-				<li>
-					<a class=" text-gray-900" href="/">Home</a>
-				</li>
-				<li>
-					<a class="text-gray-900" href="/about">About</a>
-				</li>
-			</ol>
-		</div>
+	<nav>
+		@Logo()
 	</nav>
 }
 
 templ Layout() {
 	@header()
 	<body class="flex flex-col h-full bg-gray-900">
+		// @nav()
 		<main class="flex justify-center p-4">
 			{ children... }
 		</main>

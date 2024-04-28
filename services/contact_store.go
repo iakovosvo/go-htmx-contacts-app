@@ -11,6 +11,8 @@ var (
 	ErrNotFound = errors.New("not found")
 )
 
+var ErrContactExists = errors.New("contact already exists")
+
 type Contact struct {
 	ID    string
 	Name  string
@@ -55,6 +57,13 @@ func NewContactsStore() *ContactStore {
 func (c *ContactStore) CreateContact(contact Contact) error {
 	c.Mutex.Lock()
 	defer c.Mutex.Unlock()
+
+	for _, c := range c.Contacts {
+		if c.Email == contact.Email {
+			return ErrContactExists
+		}
+	}
+
 	c.Contacts = append(c.Contacts, contact)
 	return nil
 }
@@ -93,21 +102,3 @@ func (c *ContactStore) DeleteContact(id string) error {
 	}
 	return nil
 }
-
-// func (c *ContactStore) ContactExists(email string) bool {
-// 	c.Mutex.Lock()
-// 	defer c.Mutex.Unlock()
-// 	for _, contact := range c.Contacts {
-// 		if contact.Email == email {
-// 			return true
-// 		}
-// 	}
-// 	return false
-// }
-
-// func (app *ContactStore) InjectData(next echo.HandlerFunc) echo.HandlerFunc {
-// 	return func(c echo.Context) error {
-// 		c.Set("data", app)
-// 		return next(c)
-// 	}
-// }
