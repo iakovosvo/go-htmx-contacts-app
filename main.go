@@ -22,6 +22,7 @@ func main() {
 
 	e.GET("/", contactsHandler.HomeHandler)
 	e.GET("/contacts", contactsHandler.GetAll)
+	e.GET("/contacts/:id", contactsHandler.Get)
 	e.POST("/contacts", contactsHandler.Create)
 	e.DELETE("/contacts/:id", contactsHandler.Delete)
 	e.Logger.Fatal(e.Start(":8080"))

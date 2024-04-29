@@ -59,6 +59,28 @@ func (h *ContactsHandler) Delete(c echo.Context) error {
 	return c.NoContent(200)
 }
 
+func (h *ContactsHandler) Get(c echo.Context) error {
+	id := c.Param("id")
+
+	contact, err := h.service.GetContactById(id)
+
+	if err != nil {
+		// TODO: handle errors and status code
+		return err
+	}
+
+	formData := services.FormData{
+		Values: map[string]string{
+			"name":  contact.Name,
+			"email": contact.Email,
+		},
+	}
+
+	c.Response().Header().Set("Content-Type", "text/html")
+	return Render(c, templates.Form(formData))
+
+}
+
 func (h *ContactsHandler) GetAll(c echo.Context) error {
 	contacts, err := h.service.GetAllContacts()
 

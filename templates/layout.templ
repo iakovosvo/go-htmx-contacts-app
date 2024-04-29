@@ -1,6 +1,6 @@
 package templates
 
-templ header() {
+templ head() {
 	<head>
 		<title>Contacts app</title>
 		<meta charset="UTF-8"/>
@@ -27,11 +27,14 @@ templ nav() {
 }
 
 templ Layout() {
-	@header()
-	<body class="flex flex-col h-full bg-gray-900">
-		// @nav()
-		<main class="flex justify-center p-4">
-			{ children... }
-		</main>
-	</body>
+	<!DOCTYPE html>
+	<html lang="en">
+		@head()
+		<body class="flex flex-col h-full bg-gray-900">
+			// @nav()
+			<main class="flex justify-center p-4">
+				{ children... }
+			</main>
+		</body>
+	</html>
 }
