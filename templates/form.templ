@@ -2,9 +2,19 @@ package templates
 
 import "github.com/iakovosvo/go-htmx-contacts-app/services"
 import "github.com/iakovosvo/go-htmx-contacts-app/utils"
+import "fmt"
 
 templ Form(formData services.FormData) {
-	<form id="contact-form" hx-post="/contacts" hx-swap="outerHTML" class="p-6 rounded-lg">
+	<form
+		id="contact-form"
+		if utils.HasFormValue(formData, "id") {
+			hx-post={ fmt.Sprintf("/contacts/%s", formData.Values["id"]) }
+		} else {
+			hx-post="/contacts"
+		}
+		hx-swap="outerHTML"
+		class="p-6 rounded-lg"
+	>
 		<div class="mb-6">
 			<label for="name" class="block mb-2 text-lg font-bold text-gray-200">Name</label>
 			<input
@@ -38,6 +48,12 @@ templ Form(formData services.FormData) {
 				<div class="text-gray-50 pt-1">Email already exists</div>
 			}
 		</div>
-		<button class="w-full text-gray-800 bg-white focus:ring-4 hover:opacity-80 focus:outline-none focus:ring-blue-300 font-bold rounded-full text-xl px-5 py-2.5 text-center">Add</button>
+		<button class="w-full text-gray-800 bg-white focus:ring-4 hover:opacity-80 focus:outline-none focus:ring-blue-300 font-bold rounded-full text-xl px-5 py-2.5 text-center">
+			if utils.HasFormValue(formData, "id") {
+				Update
+			} else {
+				Create
+			}
+		</button>
 	</form>
 }

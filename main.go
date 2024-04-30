@@ -18,12 +18,15 @@ func main() {
 
 	// TODO: Take a look at The Primagen 422 script
 
+	// TODO: DELETE CONFIRMATION DIALOG
+
 	e.Static("/static", "static")
 
 	e.GET("/", contactsHandler.HomeHandler)
 	e.GET("/contacts", contactsHandler.GetAll)
 	e.GET("/contacts/:id", contactsHandler.Get)
 	e.POST("/contacts", contactsHandler.Create)
+	e.POST("/contacts/:id", contactsHandler.Update)
 	e.DELETE("/contacts/:id", contactsHandler.Delete)
 	e.Logger.Fatal(e.Start(":8080"))
 }

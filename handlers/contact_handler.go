@@ -50,6 +50,26 @@ func (h *ContactsHandler) Create(c echo.Context) error {
 	return Render(c, templates.ContactItemOob(contact))
 }
 
+func (h *ContactsHandler) Update(c echo.Context) error {
+	name := c.FormValue("name")
+	email := c.FormValue("email")
+	id := c.Param("id")
+
+	contact := services.Contact{ID: id, Name: name, Email: email}
+
+	// TODO: Handle errors
+	h.service.UpdateContact(contact)
+
+	formData := services.NewFormData()
+	c.Response().Header().Set("Content-Type", "text/html")
+
+	if err := Render(c, templates.Form(formData)); err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, "Failed to render form")
+	}
+
+	return Render(c, templates.UpdateContactItemOob(contact))
+}
+
 func (h *ContactsHandler) Delete(c echo.Context) error {
 	id := c.Param("id")
 
@@ -73,12 +93,12 @@ func (h *ContactsHandler) Get(c echo.Context) error {
 		Values: map[string]string{
 			"name":  contact.Name,
 			"email": contact.Email,
+			"id":    contact.ID,
 		},
 	}
 
 	c.Response().Header().Set("Content-Type", "text/html")
 	return Render(c, templates.Form(formData))
-
 }
 
 func (h *ContactsHandler) GetAll(c echo.Context) error {

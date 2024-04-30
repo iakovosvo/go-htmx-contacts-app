@@ -6,12 +6,7 @@ templ head() {
 		<meta charset="UTF-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 		<script src="https://unpkg.com/htmx.org/dist/htmx.js"></script>
-		// <script src="static/script/response-targets.js"></script>
-		// if os.Getenv("env") == "production" {
-		// 	<link rel="stylesheet" href="static/css/style.min.css" nonce={ middleware.GetTwNonce(ctx) }/>
-		// } else {
-		// 	<link rel="stylesheet" href="static/css/style.css" nonce={ middleware.GetTwNonce(ctx) }/>
-		// }
+		// can conditionally use style.css or style.min.css depending on PROD env here
 		<link href="/static/css/style.css" rel="stylesheet"/>
 	</head>
 }
@@ -30,8 +25,7 @@ templ Layout() {
 	<!DOCTYPE html>
 	<html lang="en">
 		@head()
-		<body class="flex flex-col h-full bg-gray-900">
-			// @nav()
+		<body hx-boost="true" class="flex flex-col h-full bg-gray-900">
 			<main class="flex justify-center p-4">
 				{ children... }
 			</main>

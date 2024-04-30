@@ -4,9 +4,9 @@ import "github.com/iakovosvo/go-htmx-contacts-app/services"
 import "fmt"
 
 templ ContactItem(contact services.Contact) {
-	<li class="contact text-lg p-3 hover:opacity-80  cursor-pointer flex justify-between items-center">
+	<li id={ fmt.Sprintf("contact-%s", contact.ID) } class="contact text-lg p-3 hover:opacity-80  cursor-pointer flex justify-between items-center">
 		<div flex flex-col>
-			<h3 class="text-gray-200 font-bold ">{ contact.Name }</h3>
+			<h2 class="text-gray-200 font-bold ">{ contact.Name }</h2>
 			<p class="text-gray-400">{ contact.Email }</p>
 		</div>
 		<div class="flex gap-4">
@@ -15,6 +15,7 @@ templ ContactItem(contact services.Contact) {
 				hx-target="#contact-form"
 				hx-swap="outerHTML"
 				type="button"
+				aria-label="Edit contact"
 				class="group flex items-center justify-center bg-transparent border-2 border-gray-200 text-gray-200 hover:bg-gray-200 hover:text-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-full h-10 w-10"
 			>
 				<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 48 48" fill="currentColor">
@@ -26,6 +27,7 @@ templ ContactItem(contact services.Contact) {
 				hx-swap="outerHTML"
 				hx-target="closest .contact"
 				type="button"
+				aria-label="Delete contact"
 				class="group flex items-center justify-center bg-transparent border-2 border-gray-200 text-gray-200 hover:bg-gray-200 hover:text-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-full h-10 w-10"
 			>
 				<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 32 32" fill="currentColor">

@@ -83,10 +83,10 @@ func (c *ContactStore) GetAllContacts() ([]Contact, error) {
 	return c.Contacts, nil
 }
 
-func (c *ContactStore) UpdateContact(id string, contact Contact) error {
+func (c *ContactStore) UpdateContact(newContact Contact) error {
 	for i, contact := range c.Contacts {
-		if contact.ID == id {
-			c.Contacts[i].ID = id
+		if contact.ID == newContact.ID {
+			c.Contacts[i] = newContact
 			return nil
 		}
 	}

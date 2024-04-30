@@ -20,8 +20,8 @@ func (s *ContactService) GetContactById(id string) (Contact, error) {
 	return s.store.GetContactById(id)
 }
 
-func (s *ContactService) UpdateContact(id string, contact Contact) error {
-	return s.store.UpdateContact(id, contact)
+func (s *ContactService) UpdateContact(contact Contact) error {
+	return s.store.UpdateContact(contact)
 }
 
 func (s *ContactService) DeleteContact(id string) error {
