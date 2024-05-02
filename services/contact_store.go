@@ -22,7 +22,7 @@ type Contact struct {
 type ContactDataStore interface {
 	CreateContact(contact Contact) error
 	GetContactById(id string) (Contact, error)
-	GetAllContacts() ([]Contact, error)
+	GetContacts(page, pageSize int) ([]Contact, error)
 	UpdateContact(id string, contact Contact) error
 	DeleteContact(id string) error
 }
@@ -48,6 +48,41 @@ func NewContactsStore() *ContactStore {
 			{
 				Name:  "Isla Grey",
 				Email: "isla.grey@example.com",
+				ID:    uuid.New().String(),
+			},
+			{
+				Name:  "Noah Lee",
+				Email: "noah.lee@example.com",
+				ID:    uuid.New().String(),
+			},
+			{
+				Name:  "Olivia Smith",
+				Email: "olivia.smith@example.com",
+				ID:    uuid.New().String(),
+			},
+			{
+				Name:  "Liam Johnson",
+				Email: "liam.johnson@example.com",
+				ID:    uuid.New().String(),
+			},
+			{
+				Name:  "Emma Brown",
+				Email: "emma.brown@example.com",
+				ID:    uuid.New().String(),
+			},
+			{
+				Name:  "Lucas Jones",
+				Email: "lucas.jones@example.com",
+				ID:    uuid.New().String(),
+			},
+			{
+				Name:  "Sophia Garcia",
+				Email: "sophia.garcia@example.com",
+				ID:    uuid.New().String(),
+			},
+			{
+				Name:  "Mason Martinez",
+				Email: "mason.martinez@example.com",
 				ID:    uuid.New().String(),
 			},
 		},
@@ -79,8 +114,19 @@ func (c *ContactStore) GetContactById(id string) (Contact, error) {
 	return Contact{}, ErrNotFound
 }
 
-func (c *ContactStore) GetAllContacts() ([]Contact, error) {
-	return c.Contacts, nil
+func (c *ContactStore) GetContacts(page, pageSize int) ([]Contact, error) {
+	start := (page - 1) * pageSize
+	end := start + pageSize
+
+	if end > len(c.Contacts) {
+		end = len(c.Contacts)
+	}
+
+	if start >= len(c.Contacts) {
+		return []Contact{}, nil
+	}
+
+	return c.Contacts[start:end], nil
 }
 
 func (c *ContactStore) UpdateContact(newContact Contact) error {

@@ -27,7 +27,11 @@ templ Layout() {
 		@head()
 		<body hx-boost="true" class="flex flex-col h-full bg-gray-900">
 			<main class="flex justify-center p-4">
-				{ children... }
+				<div class=" mt-8 basis-2/3 max-md:basis-full max-md:mx-4 shadow-lg">
+					<div class="bg-gray-800 rounded-t-3xl p-8">
+						{ children... }
+					</div>
+				</div>
 			</main>
 		</body>
 	</html>

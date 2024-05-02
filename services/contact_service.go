@@ -12,8 +12,8 @@ func (s *ContactService) CreateContact(contact Contact) error {
 	return s.store.CreateContact(contact)
 }
 
-func (s *ContactService) GetAllContacts() ([]Contact, error) {
-	return s.store.GetAllContacts()
+func (s *ContactService) GetContacts(page, pageSize int) ([]Contact, error) {
+	return s.store.GetContacts(page, pageSize)
 }
 
 func (s *ContactService) GetContactById(id string) (Contact, error) {

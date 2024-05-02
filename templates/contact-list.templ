@@ -1,11 +1,25 @@
 package templates
 
 import "github.com/iakovosvo/go-htmx-contacts-app/services"
+import "fmt"
 
-templ ContactList(contacts []services.Contact) {
-	<ul id="contact-list" class="flex flex-col divide-y divide-dashed divide-gray-300">
-		for _, contact := range contacts {
-			@ContactItem(contact)
-		}
-	</ul>
+templ ContactList(contacts []services.Contact, page int) {
+	<div>
+		<ul id="contact-list" class="flex flex-col divide-y divide-dashed divide-gray-300">
+			for _, contact := range contacts {
+				@ContactItem(contact)
+			}
+			if len(contacts) == 3 {
+				<li id="button-wrapper" class="flex justify-center pt-4">
+					<button
+						hx-get={ fmt.Sprintf("/contacts?page=%d", page+1) }
+						hx-target="#button-wrapper"
+						hx-swap="outerHTML"
+						type="button"
+						class="bg-white text-gray-700 font-bold rounded-full py-1 px-3"
+					>Load more</button>
+				</li>
+			}
+		</ul>
+	</div>
 }

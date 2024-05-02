@@ -14,7 +14,7 @@ func main() {
 	service := services.NewContactService(store)
 	contactsHandler := handlers.NewContactsHandler(service)
 
-	// TODO: hx-boost, url & redirection
+	// TODO: url & redirection
 
 	// TODO: Take a look at The Primagen 422 script
 
@@ -29,4 +29,5 @@ func main() {
 	e.POST("/contacts/:id", contactsHandler.Update)
 	e.DELETE("/contacts/:id", contactsHandler.Delete)
 	e.Logger.Fatal(e.Start(":8080"))
+
 }

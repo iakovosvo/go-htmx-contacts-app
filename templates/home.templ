@@ -4,12 +4,8 @@ import "github.com/iakovosvo/go-htmx-contacts-app/services"
 
 templ HomePage(contacts []services.Contact, formData services.FormData) {
 	@Layout() {
-		<div class=" mt-8 basis-2/3 max-md:basis-full max-md:mx-4 shadow-lg">
-			<div class="bg-gray-800 rounded-t-3xl p-8">
-				@Form(formData)
-				@ContactsHeader()
-				@ContactList(contacts)
-			</div>
-		</div>
+		@Form(formData)
+		@ContactsHeader()
+		@ContactList(contacts, 1)
 	}
 }

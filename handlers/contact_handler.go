@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/google/uuid"
 	"github.com/iakovosvo/go-htmx-contacts-app/services"
@@ -102,22 +103,30 @@ func (h *ContactsHandler) Get(c echo.Context) error {
 }
 
 func (h *ContactsHandler) GetAll(c echo.Context) error {
-	contacts, err := h.service.GetAllContacts()
+	pageParam := c.QueryParam("page")
+	pageSizeParam := 3
+
+	page, err := strconv.Atoi(pageParam)
+
+	if err != nil || page < 1 {
+		page = 1
+	}
+
+	contacts, err := h.service.GetContacts(page, pageSizeParam)
 
 	if err != nil {
-		return err
+		return echo.NewHTTPError(http.StatusInternalServerError)
 	}
 
 	// TODO: For demo show the JSON response
-	if err := Render(c, templates.ContactList(contacts)); err != nil {
-		// Log the error and handle it appropriately
+	if err := Render(c, templates.ContactList(contacts, page)); err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, "Failed to render list")
 	}
 	return nil
 }
 
 func (h *ContactsHandler) HomeHandler(c echo.Context) error {
-	contacts, err := h.service.GetAllContacts()
+	contacts, err := h.service.GetContacts(1, 3)
 	formData := services.NewFormData()
 
 	if err != nil {
