@@ -10,16 +10,14 @@ templ ContactList(contacts []services.Contact, page int) {
 				@ContactItem(contact)
 			}
 			if len(contacts) == 3 {
-				<li id="button-wrapper" class="flex justify-center pt-4">
-					<button
-						hx-get={ fmt.Sprintf("/contacts?page=%d", page+1) }
-						hx-target="#button-wrapper"
-						hx-swap="outerHTML"
-						type="button"
-						class="bg-white text-gray-700 font-bold rounded-full py-1 px-3"
-					>Load more</button>
-				</li>
+				<li
+					hx-indicator=".htmx-indicator"
+					hx-get={ fmt.Sprintf("/contacts?page=%d", page+1) }
+					hx-trigger="revealed"
+					hx-swap="afterend swap:500ms"
+				></li>
 			}
 		</ul>
+		// <center><li class="htmx-indicator text-white">loading...</li></center>
 	</div>
 }

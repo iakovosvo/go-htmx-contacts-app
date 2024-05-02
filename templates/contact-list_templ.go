@@ -37,20 +37,20 @@ func ContactList(contacts []services.Contact, page int) templ.Component {
 			}
 		}
 		if len(contacts) == 3 {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<li id=\"button-wrapper\" class=\"flex justify-center pt-4\"><button hx-get=\"")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<li hx-indicator=\".htmx-indicator\" hx-get=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var2 string
 			templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("/contacts?page=%d", page+1))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/contact-list.templ`, Line: 15, Col: 55}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/contact-list.templ`, Line: 15, Col: 54}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-target=\"#button-wrapper\" hx-swap=\"outerHTML\" type=\"button\" class=\"bg-white text-gray-700 font-bold rounded-full py-1 px-3\">Load more</button></li>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-trigger=\"revealed\" hx-swap=\"afterend swap:500ms\"></li>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
