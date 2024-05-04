@@ -82,7 +82,7 @@ func (h *ContactsHandler) Delete(c echo.Context) error {
 	return c.NoContent(200)
 }
 
-func (h *ContactsHandler) Get(c echo.Context) error {
+func (h *ContactsHandler) GetContact(c echo.Context) error {
 	id := c.Param("id")
 
 	contact, err := h.service.GetContactById(id)
@@ -99,7 +99,7 @@ func (h *ContactsHandler) Get(c echo.Context) error {
 			"id":    contact.ID,
 		},
 	}
-
+	// TODO: For demo show the JSON response
 	c.Response().Header().Set("Content-Type", "text/html")
 	return Render(c, templates.Form(formData))
 }
@@ -136,7 +136,6 @@ func (h *ContactsHandler) GetContacts(c echo.Context) error {
 		Render(c, templates.ContactItem(contact, attrs))
 	}
 
-	// TODO: For demo show the JSON response
 	// if err := Render(c, templates.ContactList(contacts, page)); err != nil {
 	// 	return echo.NewHTTPError(http.StatusInternalServerError, "Failed to render list")
 	// }
@@ -144,15 +143,11 @@ func (h *ContactsHandler) GetContacts(c echo.Context) error {
 }
 
 func (h *ContactsHandler) HomeHandler(c echo.Context) error {
-	contacts, err := h.service.GetContacts(1, 3)
 	formData := services.NewFormData()
 
-	if err != nil {
-		return err
+	if err := Render(c, templates.HomePage(formData)); err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, "Failed to render home page")
 	}
 
-	if err := Render(c, templates.HomePage(contacts, formData)); err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, "Failed to render list")
-	}
 	return nil
 }

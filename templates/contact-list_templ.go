@@ -10,10 +10,7 @@ import "context"
 import "io"
 import "bytes"
 
-import "github.com/iakovosvo/go-htmx-contacts-app/services"
-import "fmt"
-
-func ContactList(contacts []services.Contact, page int) templ.Component {
+func ContactList() templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -26,29 +23,7 @@ func ContactList(contacts []services.Contact, page int) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<ul id=\"contact-list\" class=\"flex flex-col divide-y divide-dashed divide-gray-300\">")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		for i, contact := range contacts {
-			if i == len(contacts)-1 {
-				templ_7745c5c3_Err = ContactItem(contact, templ.Attributes{
-					"hx-get":     fmt.Sprintf("/contacts?page=%d", page+1),
-					"hx-trigger": "revealed",
-					"hx-target":  "#contact-list",
-					"hx-swap":    "beforeend swap:500ms",
-				}).Render(ctx, templ_7745c5c3_Buffer)
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-			} else {
-				templ_7745c5c3_Err = ContactItem(contact, templ.Attributes{"": ""}).Render(ctx, templ_7745c5c3_Buffer)
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-			}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</ul>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<ul id=\"contact-list\" hx-get=\"/contacts?page=1\" hx-trigger=\"load\" class=\"flex flex-col divide-y divide-dashed divide-gray-300\"></ul>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

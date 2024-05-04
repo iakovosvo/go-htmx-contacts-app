@@ -12,7 +12,7 @@ import "bytes"
 
 import "github.com/iakovosvo/go-htmx-contacts-app/services"
 
-func HomePage(contacts []services.Contact, formData services.FormData) templ.Component {
+func HomePage(formData services.FormData) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -47,7 +47,7 @@ func HomePage(contacts []services.Contact, formData services.FormData) templ.Com
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = ContactList(contacts, 1).Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = ContactList().Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

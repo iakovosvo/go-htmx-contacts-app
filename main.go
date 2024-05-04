@@ -24,7 +24,7 @@ func main() {
 
 	e.GET("/", contactsHandler.HomeHandler)
 	e.GET("/contacts", contactsHandler.GetContacts)
-	e.GET("/contacts/:id", contactsHandler.Get)
+	e.GET("/contacts/:id", contactsHandler.GetContact)
 	e.POST("/contacts", contactsHandler.Create)
 	e.POST("/contacts/:id", contactsHandler.Update)
 	e.DELETE("/contacts/:id", contactsHandler.Delete)
