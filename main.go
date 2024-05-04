@@ -20,6 +20,8 @@ func main() {
 
 	// TODO: DELETE CONFIRMATION DIALOG
 
+	// TODO: Add placeholder text if list is empty
+
 	e.Static("/static", "static")
 
 	e.GET("/", contactsHandler.HomeHandler)
