@@ -23,11 +23,10 @@ func main() {
 	e.Static("/static", "static")
 
 	e.GET("/", contactsHandler.HomeHandler)
-	e.GET("/contacts", contactsHandler.GetAll)
+	e.GET("/contacts", contactsHandler.GetContacts)
 	e.GET("/contacts/:id", contactsHandler.Get)
 	e.POST("/contacts", contactsHandler.Create)
 	e.POST("/contacts/:id", contactsHandler.Update)
 	e.DELETE("/contacts/:id", contactsHandler.Delete)
 	e.Logger.Fatal(e.Start(":8080"))
-
 }

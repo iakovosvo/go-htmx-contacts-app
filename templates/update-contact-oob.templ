@@ -5,6 +5,6 @@ import "fmt"
 
 templ UpdateContactItemOob(contact services.Contact) {
 	<div hx-swap-oob="outerHTML" id={ fmt.Sprintf("contact-%s", contact.ID) }>
-		@ContactItem(contact)
+		@ContactItem(contact, templ.Attributes{"": ""})
 	</div>
 }

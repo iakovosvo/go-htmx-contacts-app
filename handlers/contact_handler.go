@@ -1,9 +1,11 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 
+	"github.com/a-h/templ"
 	"github.com/google/uuid"
 	"github.com/iakovosvo/go-htmx-contacts-app/services"
 	"github.com/iakovosvo/go-htmx-contacts-app/templates"
@@ -102,7 +104,7 @@ func (h *ContactsHandler) Get(c echo.Context) error {
 	return Render(c, templates.Form(formData))
 }
 
-func (h *ContactsHandler) GetAll(c echo.Context) error {
+func (h *ContactsHandler) GetContacts(c echo.Context) error {
 	pageParam := c.QueryParam("page")
 	pageSizeParam := 3
 
@@ -118,10 +120,26 @@ func (h *ContactsHandler) GetAll(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError)
 	}
 
-	// TODO: For demo show the JSON response
-	if err := Render(c, templates.ContactList(contacts, page)); err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, "Failed to render list")
+	c.Response().Header().Set("Content-Type", "text/html")
+
+	for i, contact := range contacts {
+		attrs := templ.Attributes{"": ""}
+
+		if i == len(contacts)-1 {
+			attrs = templ.Attributes{
+				"hx-get":     fmt.Sprintf("/contacts?page=%d", page+1),
+				"hx-trigger": "revealed",
+				"hx-target":  "#contact-list",
+				"hx-swap":    "beforeend swap:500ms",
+			}
+		}
+		Render(c, templates.ContactItem(contact, attrs))
 	}
+
+	// TODO: For demo show the JSON response
+	// if err := Render(c, templates.ContactList(contacts, page)); err != nil {
+	// 	return echo.NewHTTPError(http.StatusInternalServerError, "Failed to render list")
+	// }
 	return nil
 }
 

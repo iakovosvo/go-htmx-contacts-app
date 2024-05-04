@@ -29,7 +29,7 @@ func ContactItemOob(contact services.Contact) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = ContactItem(contact).Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = ContactItem(contact, templ.Attributes{"": ""}).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
