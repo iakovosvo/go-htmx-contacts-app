@@ -8,7 +8,9 @@ import (
 	"github.com/a-h/templ"
 	"github.com/google/uuid"
 	"github.com/iakovosvo/go-htmx-contacts-app/services"
-	"github.com/iakovosvo/go-htmx-contacts-app/templates"
+	"github.com/iakovosvo/go-htmx-contacts-app/views/components"
+	"github.com/iakovosvo/go-htmx-contacts-app/views/pages"
+
 	"github.com/labstack/echo/v4"
 )
 
@@ -38,19 +40,19 @@ func (h *ContactsHandler) Create(c echo.Context) error {
 				},
 			}
 			// TODO: Handle http header
-			return Render(c, templates.Form(formData))
+			return Render(c, components.Form(formData))
 		}
 	}
 
 	formData := services.NewFormData()
 	c.Response().Header().Set("Content-Type", "text/html")
 
-	if err := Render(c, templates.Form(formData)); err != nil {
+	if err := Render(c, components.Form(formData)); err != nil {
 		// Log the error and handle it appropriately
 		return echo.NewHTTPError(http.StatusInternalServerError, "Failed to render form")
 	}
 
-	return Render(c, templates.ContactItemOob(contact))
+	return Render(c, components.ContactItemOob(contact))
 }
 
 func (h *ContactsHandler) Update(c echo.Context) error {
@@ -66,11 +68,11 @@ func (h *ContactsHandler) Update(c echo.Context) error {
 	formData := services.NewFormData()
 	c.Response().Header().Set("Content-Type", "text/html")
 
-	if err := Render(c, templates.Form(formData)); err != nil {
+	if err := Render(c, components.Form(formData)); err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, "Failed to render form")
 	}
 
-	return Render(c, templates.UpdateContactItemOob(contact))
+	return Render(c, components.UpdateContactItemOob(contact))
 }
 
 func (h *ContactsHandler) Delete(c echo.Context) error {
@@ -101,7 +103,7 @@ func (h *ContactsHandler) GetContact(c echo.Context) error {
 	}
 	// TODO: For demo show the JSON response
 	c.Response().Header().Set("Content-Type", "text/html")
-	return Render(c, templates.Form(formData))
+	return Render(c, components.Form(formData))
 }
 
 func (h *ContactsHandler) GetContacts(c echo.Context) error {
@@ -133,19 +135,16 @@ func (h *ContactsHandler) GetContacts(c echo.Context) error {
 				"hx-swap":    "beforeend swap:500ms",
 			}
 		}
-		Render(c, templates.ContactItem(contact, attrs))
+		Render(c, components.ContactItem(contact, attrs))
 	}
 
-	// if err := Render(c, templates.ContactList(contacts, page)); err != nil {
-	// 	return echo.NewHTTPError(http.StatusInternalServerError, "Failed to render list")
-	// }
 	return nil
 }
 
 func (h *ContactsHandler) HomeHandler(c echo.Context) error {
 	formData := services.NewFormData()
 
-	if err := Render(c, templates.HomePage(formData)); err != nil {
+	if err := Render(c, pages.HomePage(formData)); err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, "Failed to render home page")
 	}
 

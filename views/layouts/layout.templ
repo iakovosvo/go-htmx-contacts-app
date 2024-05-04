@@ -1,4 +1,6 @@
-package templates
+package layouts
+
+import "github.com/iakovosvo/go-htmx-contacts-app/views/components"
 
 templ head() {
 	<head>
@@ -22,7 +24,7 @@ templ footer() {
 
 templ nav() {
 	<nav>
-		@Logo()
+		@components.Logo()
 	</nav>
 }
 
