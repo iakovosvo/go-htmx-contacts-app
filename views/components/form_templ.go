@@ -78,7 +78,7 @@ func Form(formData services.FormData) templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" placeholder=\"Enter name\" required class=\"bg-inherit border border-gray-500 text-gray-200 text-sm rounded-md focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 block w-full p-2.5\"></div><div class=\"mb-6\"><label for=\"email\" class=\"block mb-2 text-lg font-bold text-gray-200\">Email</label> <input id=\"email\" name=\"email\" placeholder=\"Enter email\" required")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" placeholder=\"Enter name\" required class=\"bg-inherit border border-gray-500 text-gray-200 text-sm rounded-md focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 block w-full p-2.5\"></div><div class=\"mb-6\"><label for=\"email\" class=\"block mb-2 text-lg font-bold text-gray-200\">Email</label> <input id=\"email\" type=\"email\" name=\"email\" placeholder=\"Enter email\" required")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -96,7 +96,7 @@ func Form(formData services.FormData) templ.Component {
 			var templ_7745c5c3_Var4 string
 			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(formData.Values["email"])
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/components/form.templ`, Line: 43, Col: 37}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/components/form.templ`, Line: 44, Col: 37}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 			if templ_7745c5c3_Err != nil {

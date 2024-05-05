@@ -4,6 +4,6 @@ import "github.com/iakovosvo/go-htmx-contacts-app/services"
 
 templ ContactItemOob(contact services.Contact) {
 	<div hx-swap-oob="afterbegin" id="contact-list">
-		@ContactItem(contact, templ.Attributes{"": ""})
+		@ContactItem(contact, templ.Attributes{})
 	</div>
 }

@@ -45,13 +45,15 @@ func (h *ContactsHandler) Create(c echo.Context) error {
 	}
 
 	formData := services.NewFormData()
-	c.Response().Header().Set("Content-Type", "text/html")
 
 	if err := Render(c, components.Form(formData)); err != nil {
-		// Log the error and handle it appropriately
 		return echo.NewHTTPError(http.StatusInternalServerError, "Failed to render form")
 	}
+	// attrs := templ.Attributes{
+	// 	"hx-swap-oob": "beforebegin:#contact-list",
+	// }
 
+	//return Render(c, components.ContactItem(contact, attrs))
 	return Render(c, components.ContactItemOob(contact))
 }
 
@@ -66,13 +68,16 @@ func (h *ContactsHandler) Update(c echo.Context) error {
 	h.service.UpdateContact(contact)
 
 	formData := services.NewFormData()
-	c.Response().Header().Set("Content-Type", "text/html")
 
 	if err := Render(c, components.Form(formData)); err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, "Failed to render form")
 	}
 
-	return Render(c, components.UpdateContactItemOob(contact))
+	attrs := templ.Attributes{
+		"hx-swap-oob": "outerHTML",
+		"id":          fmt.Sprintf("contact-%s", contact.ID)}
+
+	return Render(c, components.ContactItem(contact, attrs))
 }
 
 func (h *ContactsHandler) Delete(c echo.Context) error {
@@ -81,7 +86,7 @@ func (h *ContactsHandler) Delete(c echo.Context) error {
 	h.service.DeleteContact(id)
 	// TODO: Add error handling
 
-	return c.NoContent(200)
+	return c.NoContent(http.StatusOK)
 }
 
 func (h *ContactsHandler) GetContact(c echo.Context) error {
@@ -102,7 +107,7 @@ func (h *ContactsHandler) GetContact(c echo.Context) error {
 		},
 	}
 	// TODO: For demo show the JSON response
-	c.Response().Header().Set("Content-Type", "text/html")
+
 	return Render(c, components.Form(formData))
 }
 
@@ -122,17 +127,15 @@ func (h *ContactsHandler) GetContacts(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError)
 	}
 
-	c.Response().Header().Set("Content-Type", "text/html")
-
 	for i, contact := range contacts {
-		attrs := templ.Attributes{"": ""}
+		attrs := templ.Attributes{}
 
 		if i == len(contacts)-1 {
 			attrs = templ.Attributes{
 				"hx-get":     fmt.Sprintf("/contacts?page=%d", page+1),
 				"hx-trigger": "revealed",
 				"hx-target":  "#contact-list",
-				"hx-swap":    "beforeend swap:500ms",
+				"hx-swap":    "beforeend swap:250ms",
 			}
 		}
 		Render(c, components.ContactItem(contact, attrs))

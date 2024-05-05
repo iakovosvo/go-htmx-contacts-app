@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/iakovosvo/go-htmx-contacts-app/handlers"
+	"github.com/iakovosvo/go-htmx-contacts-app/middleware"
 	"github.com/iakovosvo/go-htmx-contacts-app/services"
 	"github.com/labstack/echo/v4"
 )
@@ -18,11 +19,10 @@ func main() {
 
 	// TODO: Take a look at The Primagen 422 script
 
-	// TODO: DELETE CONFIRMATION DIALOG
-
 	// TODO: Add placeholder text if list is empty
 
 	e.Static("/static", "static")
+	e.Use(middleware.SetContentType)
 
 	e.GET("/", contactsHandler.HomeHandler)
 	e.GET("/contacts", contactsHandler.GetContacts)
