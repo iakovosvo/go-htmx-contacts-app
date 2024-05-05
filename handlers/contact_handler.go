@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"errors"
 	"fmt"
 	"net/http"
 	"strconv"
@@ -39,7 +40,7 @@ func (h *ContactsHandler) Create(c echo.Context) error {
 					"email": email,
 				},
 			}
-			// TODO: Handle http header
+
 			return Render(c, components.Form(formData))
 		}
 	}
@@ -49,11 +50,7 @@ func (h *ContactsHandler) Create(c echo.Context) error {
 	if err := Render(c, components.Form(formData)); err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, "Failed to render form")
 	}
-	// attrs := templ.Attributes{
-	// 	"hx-swap-oob": "beforebegin:#contact-list",
-	// }
 
-	//return Render(c, components.ContactItem(contact, attrs))
 	return Render(c, components.ContactItemOob(contact))
 }
 
@@ -64,8 +61,9 @@ func (h *ContactsHandler) Update(c echo.Context) error {
 
 	contact := services.Contact{ID: id, Name: name, Email: email}
 
-	// TODO: Handle errors
-	h.service.UpdateContact(contact)
+	if err := h.service.UpdateContact(contact); err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, "Failed to update contact")
+	}
 
 	formData := services.NewFormData()
 
@@ -77,14 +75,19 @@ func (h *ContactsHandler) Update(c echo.Context) error {
 		"hx-swap-oob": "outerHTML",
 		"id":          fmt.Sprintf("contact-%s", contact.ID)}
 
-	return Render(c, components.ContactItem(contact, attrs))
+	if err := Render(c, components.ContactItem(contact, attrs)); err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, "Failed to render contact item")
+	}
+
+	return nil
 }
 
 func (h *ContactsHandler) Delete(c echo.Context) error {
 	id := c.Param("id")
 
-	h.service.DeleteContact(id)
-	// TODO: Add error handling
+	if err := h.service.DeleteContact(id); err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, "Failed to delete contact")
+	}
 
 	return c.NoContent(http.StatusOK)
 }
@@ -95,8 +98,11 @@ func (h *ContactsHandler) GetContact(c echo.Context) error {
 	contact, err := h.service.GetContactById(id)
 
 	if err != nil {
-		// TODO: handle errors and status code
-		return err
+		if errors.Is(err, services.ErrNotFound) {
+			return echo.NewHTTPError(http.StatusNotFound, "Contact not found")
+		}
+
+		return echo.NewHTTPError(http.StatusInternalServerError, "Failed to get contact")
 	}
 
 	formData := services.FormData{
@@ -106,8 +112,8 @@ func (h *ContactsHandler) GetContact(c echo.Context) error {
 			"id":    contact.ID,
 		},
 	}
-	// TODO: For demo show the JSON response
 
+	// TODO: For demo show the JSON response
 	return Render(c, components.Form(formData))
 }
 
