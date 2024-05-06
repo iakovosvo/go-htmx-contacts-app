@@ -1,0 +1,24 @@
+package components
+
+templ Modal() {
+	<div
+		x-show="isModalOpen"
+		x-trap="isModalOpen"
+		x-on:keydown.escape.window="isModalOpen = false;clearModalContent(); history.pushState({}, '', '/')"
+		x-on:keydown.enter.window="isModalOpen = false;clearModalContent(); history.pushState({}, '', '/')"
+	>
+		<div aria-hidden="true" class="bg-slate-900/80 bottom-0 fixed left-0 right-0 top-0 z-20"></div>
+		<div
+			role="dialog"
+			aria-modal="true"
+			class="fixed bottom-0 p-6 left-0 overflow-auto right-0 top-0 z-30 lg:py-24"
+		>
+			<div
+				class="container max-w-xl mx-auto relative shadow-lg z-90"
+				x-on:click.outside="isModalOpen = false;clearModalContent(); history.pushState({}, '', '/')"
+			>
+				<div id="modal-content" class="p-6 bg-gray-800 rounded-3xl"></div>
+			</div>
+		</div>
+	</div>
+}

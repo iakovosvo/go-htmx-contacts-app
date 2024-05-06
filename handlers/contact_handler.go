@@ -141,7 +141,7 @@ func (h *ContactsHandler) GetContacts(c echo.Context) error {
 				"hx-get":     fmt.Sprintf("/contacts?page=%d", page+1),
 				"hx-trigger": "revealed",
 				"hx-target":  "#contact-list",
-				"hx-swap":    "beforeend swap:250ms",
+				"hx-swap":    "beforeend",
 			}
 		}
 		Render(c, components.ContactItem(contact, attrs))

@@ -25,7 +25,7 @@ func head() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<head><title>Contacts app</title><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><meta name=\"description\" content=\"A minimal contacts app built with Go, HTMX, Templ and\n			Echo for demo purposes.\"><script src=\"https://unpkg.com/htmx.org/dist/htmx.js\"></script><link href=\"/static/css/style.css\" rel=\"stylesheet\"></head>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<head><title>Contacts app</title><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><meta name=\"description\" content=\"A minimal contacts app built with Go, HTMX, Templ and\n			Echo for demo purposes.\"><script src=\"https://unpkg.com/htmx.org/dist/htmx.js\"></script><script defer src=\"https://cdn.jsdelivr.net/npm/@alpinejs/focus@3.x.x/dist/cdn.min.js\"></script><script defer src=\"https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js\"></script><script>\n        function clearModalContent() {\n            document.getElementById('modal-content').innerHTML = '';\n    \t};\n\t\t</script><link href=\"/static/css/style.css\" rel=\"stylesheet\"></head>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -113,7 +113,7 @@ func Layout() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<body hx-boost=\"true\" class=\"flex flex-col h-full bg-gray-900\"><main class=\"flex justify-center p-4\"><div class=\" mt-8 basis-2/3 max-md:basis-full max-md:mx-4 shadow-lg\"><div class=\"bg-gray-800 rounded-t-3xl p-8\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<body x-data=\"{isModalOpen: false}\" hx-boost=\"true\" class=\"flex flex-col h-full bg-gray-900\"><main class=\"flex justify-center p-4\"><div class=\" mt-8 basis-2/3 max-md:basis-full max-md:mx-4 shadow-lg\"><div class=\"bg-gray-800 rounded-t-3xl p-8\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -121,7 +121,15 @@ func Layout() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div></main></body></html>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div></main></body>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = components.Modal().Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</html>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

@@ -13,6 +13,13 @@ templ head() {
 			Echo for demo purposes."
 		/>
 		<script src="https://unpkg.com/htmx.org/dist/htmx.js"></script>
+		<script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/focus@3.x.x/dist/cdn.min.js"></script>
+		<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+		<script>
+        function clearModalContent() {
+            document.getElementById('modal-content').innerHTML = '';
+    	};
+		</script>
 		// can conditionally use style.css or style.min.css depending on PROD env here
 		<link href="/static/css/style.css" rel="stylesheet"/>
 	</head>
@@ -32,7 +39,11 @@ templ Layout() {
 	<!DOCTYPE html>
 	<html lang="en">
 		@head()
-		<body hx-boost="true" class="flex flex-col h-full bg-gray-900">
+		<body
+			x-data="{isModalOpen: false}"
+			hx-boost="true"
+			class="flex flex-col h-full bg-gray-900"
+		>
 			<main class="flex justify-center p-4">
 				<div class=" mt-8 basis-2/3 max-md:basis-full max-md:mx-4 shadow-lg">
 					<div class="bg-gray-800 rounded-t-3xl p-8">
@@ -41,5 +52,6 @@ templ Layout() {
 				</div>
 			</main>
 		</body>
+		@components.Modal()
 	</html>
 }

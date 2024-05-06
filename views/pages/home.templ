@@ -6,7 +6,6 @@ import "github.com/iakovosvo/go-htmx-contacts-app/views/components"
 
 templ HomePage(formData services.FormData) {
 	@layouts.Layout() {
-		@components.Form(formData)
 		@components.ContactsHeader()
 		@components.ContactList()
 	}
