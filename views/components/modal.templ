@@ -13,7 +13,7 @@ templ Modal() {
 			class="fixed bottom-0 p-6 left-0 overflow-auto right-0 top-0 z-30 lg:py-24"
 		>
 			<div
-				class="container max-w-xl mx-auto relative shadow-lg z-90"
+				class="container max-w-lg mx-auto relative shadow-lg z-90"
 				x-on:click.outside="isModalOpen = false;clearModalContent();"
 			>
 				<button
@@ -21,11 +21,11 @@ templ Modal() {
 					x-on:click="isModalOpen = false;clearModalContent();"
 					class="absolute top-4 right-4 p-2 text-white rounded-full"
 				>
-					<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
 					</svg>
 				</button>
-				<div id="modal-content" class="p-6 bg-gray-800 rounded-3xl"></div>
+				<div id="modal-content" class="px-6 py-8 bg-gray-800 rounded-3xl"></div>
 			</div>
 		</div>
 	</div>

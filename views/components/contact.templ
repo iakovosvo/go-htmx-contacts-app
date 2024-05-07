@@ -7,13 +7,13 @@ templ ContactItem(contact services.Contact, attrs templ.Attributes) {
 	<li
 		{ attrs... }
 		id={ fmt.Sprintf("contact-%s", contact.ID) }
-		class="contact text-lg p-3 hover:opacity-80  cursor-pointer flex justify-between items-center"
+		class="group contact text-lg p-3 hover:opacity-80  cursor-pointer flex justify-between items-center"
 	>
 		<div flex flex-col>
 			<h2 class="text-gray-200 font-bold ">{ contact.Name }</h2>
 			<p class="text-gray-400">{ contact.Email }</p>
 		</div>
-		<div class="flex gap-4">
+		<div class="hidden group-hover:flex gap-4">
 			<button
 				hx-get={ fmt.Sprintf("/contacts/%s", contact.ID) }
 				hx-target="#modal-content"

@@ -41,7 +41,12 @@ func (h *ContactsHandler) Create(c echo.Context) error {
 				},
 			}
 
-			return Render(c, components.Form(formData))
+			c.Response().WriteHeader(http.StatusUnprocessableEntity)
+			if err := Render(c, components.Form(formData)); err != nil {
+				return echo.NewHTTPError(http.StatusInternalServerError, "Failed to render form with error")
+			}
+
+			return echo.NewHTTPError(http.StatusConflict, "Contact with this email already exists")
 		}
 	}
 

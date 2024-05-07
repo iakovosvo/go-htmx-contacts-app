@@ -16,6 +16,19 @@ templ head() {
 		<script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/focus@3.x.x/dist/cdn.min.js"></script>
 		<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 		<script>
+		        document.addEventListener("DOMContentLoaded", (event) => {
+				document.body.addEventListener('htmx:beforeSwap', function(evt) {
+					if (evt.detail.xhr.status === 422) {
+						// allow 422 responses to swap as we are using this as a signal that
+						// a form was submitted with bad data and want to rerender with the
+						// errors
+						//
+						// set isError to false to avoid error logging in console
+						evt.detail.shouldSwap = true;
+						evt.detail.isError = false;
+					}
+				});
+        });
         function clearModalContent() {
             document.getElementById('modal-content').innerHTML = '';
     	};
