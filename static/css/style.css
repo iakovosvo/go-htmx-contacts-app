@@ -966,6 +966,10 @@ video {
   background-color: rgb(55 65 81 / var(--tw-bg-opacity));
 }
 
+.bg-gray-900\/90 {
+  background-color: rgb(17 24 39 / 0.9);
+}
+
 .stroke-current {
   stroke: currentColor;
 }

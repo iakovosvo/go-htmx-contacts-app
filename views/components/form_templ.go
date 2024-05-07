@@ -117,7 +117,7 @@ func Form(formData services.FormData) templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><button class=\"w-full text-gray-800 bg-white focus:ring-4 hover:opacity-80 focus:outline-none focus:ring-blue-300 font-bold rounded-full text-xl px-5 py-2.5 text-center\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><button class=\"w-full text-gray-800 bg-white focus:ring-4 hover:opacity-80 focus:outline-none focus:ring-blue-300 font-bold rounded-full text-xl px-5 py-2.5 mt-2 text-center\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
