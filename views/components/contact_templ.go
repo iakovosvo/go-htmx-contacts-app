@@ -47,7 +47,7 @@ func ContactItem(contact services.Contact, attrs templ.Attributes) templ.Compone
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" class=\"contact text-lg p-3 hover:opacity-80  cursor-pointer flex justify-between items-center\"><div flex flex-col><h2 class=\"text-gray-200 font-bold \">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" class=\"group contact text-lg p-3 hover:opacity-80  cursor-pointer flex justify-between items-center\"><div flex flex-col><h2 class=\"text-gray-200 font-bold \">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -73,7 +73,7 @@ func ContactItem(contact services.Contact, attrs templ.Attributes) templ.Compone
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</p></div><div class=\"flex gap-4\"><button hx-get=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</p></div><div class=\"hidden group-hover:flex gap-4\"><button hx-get=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
