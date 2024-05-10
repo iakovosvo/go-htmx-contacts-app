@@ -78,7 +78,7 @@ func (h *ContactsHandler) Update(c echo.Context) error {
 
 	attrs := templ.Attributes{
 		"hx-swap-oob": "outerHTML",
-		"id":          fmt.Sprintf("contact-%s", contact.ID)}
+	}
 
 	if err := Render(c, components.ContactItem(contact, attrs)); err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, "Failed to render contact item")
@@ -118,7 +118,6 @@ func (h *ContactsHandler) GetContact(c echo.Context) error {
 		},
 	}
 
-	// TODO: For demo show the JSON response
 	return Render(c, components.Form(formData))
 }
 
