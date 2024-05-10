@@ -1,12 +1,13 @@
 package pages
 
-import "github.com/iakovosvo/go-htmx-contacts-app/services"
 import "github.com/iakovosvo/go-htmx-contacts-app/views/layouts"
 import "github.com/iakovosvo/go-htmx-contacts-app/views/components"
 
-templ HomePage(formData services.FormData) {
+templ HomePage() {
 	@layouts.Layout() {
-		@components.Form(formData)
+		@components.ActionButtonsContainer() {
+			@components.AddContactButton()
+		}
 		@components.ContactsHeader()
 		@components.ContactList()
 	}

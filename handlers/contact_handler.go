@@ -41,7 +41,12 @@ func (h *ContactsHandler) Create(c echo.Context) error {
 				},
 			}
 
-			return Render(c, components.Form(formData))
+			c.Response().WriteHeader(http.StatusUnprocessableEntity)
+			if err := Render(c, components.Form(formData)); err != nil {
+				return echo.NewHTTPError(http.StatusInternalServerError, "Failed to render form with error")
+			}
+
+			return echo.NewHTTPError(http.StatusConflict, "Contact with this email already exists")
 		}
 	}
 
@@ -150,10 +155,19 @@ func (h *ContactsHandler) GetContacts(c echo.Context) error {
 }
 
 func (h *ContactsHandler) HomeHandler(c echo.Context) error {
+
+	if err := Render(c, pages.HomePage()); err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, "Failed to render home page")
+	}
+
+	return nil
+}
+
+func (h *ContactsHandler) FormModalHandler(c echo.Context) error {
 	formData := services.NewFormData()
 
-	if err := Render(c, pages.HomePage(formData)); err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, "Failed to render home page")
+	if err := Render(c, components.Form(formData)); err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, "Failed to load the form")
 	}
 
 	return nil

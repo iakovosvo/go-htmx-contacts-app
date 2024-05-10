@@ -55,7 +55,7 @@ func Form(formData services.FormData) templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" hx-swap=\"outerHTML\" class=\"p-6 rounded-lg\"><div class=\"mb-6\"><label for=\"name\" class=\"block mb-2 text-lg font-bold text-gray-200\">Name</label> <input id=\"name\" type=\"text\" name=\"name\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" hx-swap=\"outerHTML\" x-on:htmx:after-request.keydown.enter.window=\"\n		if ($event.detail.xhr.status === 200) {\n			isModalOpen = false;\n			clearModalContent();\n		}\" class=\"p-6 rounded-lg\"><div class=\"mb-6\"><label for=\"name\" class=\"block mb-2 text-lg font-bold text-gray-200\">Name</label> <input id=\"name\" type=\"text\" name=\"name\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -67,7 +67,7 @@ func Form(formData services.FormData) templ.Component {
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(formData.Values["name"])
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/components/form.templ`, Line: 25, Col: 36}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/components/form.templ`, Line: 30, Col: 36}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {
@@ -96,7 +96,7 @@ func Form(formData services.FormData) templ.Component {
 			var templ_7745c5c3_Var4 string
 			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(formData.Values["email"])
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/components/form.templ`, Line: 44, Col: 37}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/components/form.templ`, Line: 49, Col: 37}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 			if templ_7745c5c3_Err != nil {
@@ -117,7 +117,7 @@ func Form(formData services.FormData) templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><button class=\"w-full text-gray-800 bg-white focus:ring-4 hover:opacity-80 focus:outline-none focus:ring-blue-300 font-bold rounded-full text-xl px-5 py-2.5 text-center\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><button class=\"w-full text-gray-800 bg-white focus:ring-4 hover:opacity-80 focus:outline-none focus:ring-blue-300 font-bold rounded-full text-xl px-5 py-2.5 mt-2 text-center\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

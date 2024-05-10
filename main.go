@@ -22,6 +22,7 @@ func main() {
 	r.GET("/", contactsHandler.HomeHandler)
 	r.GET("/contacts", contactsHandler.GetContacts)
 	r.GET("/contacts/:id", contactsHandler.GetContact)
+	r.GET("/open-form-modal", contactsHandler.FormModalHandler)
 	r.POST("/contacts", contactsHandler.Create)
 	r.POST("/contacts/:id", contactsHandler.Update)
 	r.DELETE("/contacts/:id", contactsHandler.Delete)
